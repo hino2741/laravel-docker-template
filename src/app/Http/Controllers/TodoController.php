@@ -25,7 +25,7 @@ class TodoController extends Controller
         return view('todo.create');
     }
 
-    public function store(ToDoRequest $request)
+    public function store(TodoRequest $request)
     {
         $inputs = $request->all();
         $this->todo->fill($inputs);
@@ -52,5 +52,12 @@ class TodoController extends Controller
         $todo->fill($inputs);
         $todo->save();
         return redirect()->route('todo.show', $todo->id);
+    }
+
+    public function delete($id)
+    {
+        $todo = $this->todo->find($id);
+        $todo->delete();
+        return redirect()->route('todo.index');
     }
 }
